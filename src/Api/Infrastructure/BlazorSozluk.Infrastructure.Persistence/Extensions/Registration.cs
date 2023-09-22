@@ -24,6 +24,15 @@ public static class Registration
             });
         });
 
+        var SeedDataActive = configuration["SeedDataActive"].ToString() == "True";
+        if(SeedDataActive)
+        {
+            var context = services.BuildServiceProvider().GetRequiredService<BlazorSozlukContext>();
+
+            var seedData = new SeedData();
+            seedData.SeedAsync(context).GetAwaiter().GetResult();
+        }
+
         return services;
     }
 }
