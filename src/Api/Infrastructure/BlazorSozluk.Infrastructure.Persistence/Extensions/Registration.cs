@@ -1,4 +1,7 @@
-﻿using BlazorSozluk.Infrastructure.Persistence.Context;
+﻿using BlazorSozluk.Api.Application.Interfaces.Repositories;
+using BlazorSozluk.Api.Domain.Models;
+using BlazorSozluk.Infrastructure.Persistence.Context;
+using BlazorSozluk.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +35,16 @@ public static class Registration
             var seedData = new SeedData();
             seedData.SeedAsync(context).GetAwaiter().GetResult();
         }
+
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IEmailConfirmationRepository, EmailConfirmationRepository>();
+        services.AddScoped<IEntryRepository, EntryRepository>();
+        services.AddScoped<IEntryVoteRepository, EntryVoteRepository>();
+        services.AddScoped<IEntryFavoriteRepository, EntryFavoriteRepository>();
+        services.AddScoped<IEntryCommentRepository, EntryCommentRepository>();
+        services.AddScoped<IEntryCommentVoteRepository, EntryCommentVoteRepository>();
+        services.AddScoped<IEntryCommentFavoriteRepository, EntryCommentFavoriteRepository>();
+
 
         return services;
     }
