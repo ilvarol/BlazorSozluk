@@ -45,7 +45,6 @@ public static class Registration
         services.AddScoped<IEntryCommentVoteRepository, EntryCommentVoteRepository>();
         services.AddScoped<IEntryCommentFavoriteRepository, EntryCommentFavoriteRepository>();
 
-
         return services;
     }
 }
