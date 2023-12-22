@@ -2,8 +2,8 @@
 using BlazorSozluk.Api.Application.Interfaces.Repositories;
 using BlazorSozluk.Common.Infrastructure;
 using BlazorSozluk.Common.Infrastructure.Exceptions;
-using BlazorSozluk.Common.ViewModels.Queries;
-using BlazorSozluk.Common.ViewModels.RequestModels;
+using BlazorSozluk.Common.Models.Queries;
+using BlazorSozluk.Common.Models.RequestModels;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -15,7 +15,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorSozluk.Api.Application.Features.Commands.User;
+namespace BlazorSozluk.Api.Application.Features.Commands.User.Login;
 
 public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUserViewModel>
 {
@@ -44,9 +44,9 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
         if (!dbUser.EmailConfirmed)
             throw new DatabaseValidationException("Email address is not confirmed yet!");
 
-        var  result = mapper.Map<LoginUserViewModel>(dbUser);
+        var result = mapper.Map<LoginUserViewModel>(dbUser);
 
-        var claims = new Claim[] 
+        var claims = new Claim[]
         {
             new Claim(ClaimTypes.NameIdentifier, dbUser.Id.ToString()),
             new Claim(ClaimTypes.Email, dbUser.EmailAddress),
@@ -63,13 +63,13 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
     private string GenerateToken(Claim[] claims)
     {
         var a = configuration["AuthConfig:Secret"];
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AuthConfig:Secret"])); 
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AuthConfig:Secret"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var expiry = DateTime.Now.AddDays(10);
 
         var token = new JwtSecurityToken(claims: claims,
                                          expires: expiry,
-                                         signingCredentials: creds, 
+                                         signingCredentials: creds,
                                          notBefore: DateTime.Now);
 
         return new JwtSecurityTokenHandler().WriteToken(token);

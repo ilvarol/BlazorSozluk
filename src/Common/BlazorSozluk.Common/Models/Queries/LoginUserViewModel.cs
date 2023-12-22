@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorSozluk.Common.ViewModels.Queries;
+namespace BlazorSozluk.Common.Models.Queries;
 
 public class LoginUserViewModel
 {
