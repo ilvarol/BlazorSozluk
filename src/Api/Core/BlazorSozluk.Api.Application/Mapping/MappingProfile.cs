@@ -14,11 +14,14 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<User, LoginUserViewModel>()
-            .ReverseMap();
+        CreateMap<User, LoginUserViewModel>();
 
         CreateMap<CreateUserCommand, User>();
 
         CreateMap<UpdateUserCommand, User>();
+
+        CreateMap<CreateEntryCommand, Entry>();
+
+        CreateMap<CreateEntryCommentCommand, EntryComment>();
     }
 }
