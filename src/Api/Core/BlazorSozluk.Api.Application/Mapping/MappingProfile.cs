@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BlazorSozluk.Api.Application.Features.Queries.GetEntries;
 using BlazorSozluk.Api.Domain.Models;
 using BlazorSozluk.Common.Models.Queries;
 using BlazorSozluk.Common.Models.RequestModels;
@@ -23,5 +24,8 @@ public class MappingProfile : Profile
         CreateMap<CreateEntryCommand, Entry>();
 
         CreateMap<CreateEntryCommentCommand, EntryComment>();
+
+        CreateMap<Entry, GetEntriesViewModel>()
+            .ForMember(x=> x.CommentCount, y => y.MapFrom(z => z.EntryComments.Count));
     }
 }
