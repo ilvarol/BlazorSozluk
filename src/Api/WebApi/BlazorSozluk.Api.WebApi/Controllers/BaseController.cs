@@ -9,6 +9,6 @@ namespace BlazorSozluk.Api.WebApi.Controllers
     public class BaseController : ControllerBase
     {
         //Ilyas: It will be changed
-        public Guid UserId => new (HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? Guid.NewGuid().ToString());
+        public Guid UserId => new (HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString());
     }
 }

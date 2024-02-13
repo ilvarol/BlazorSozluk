@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿    using AutoMapper;
 using BlazorSozluk.Common.Models.Page;
 using BlazorSozluk.Common.Models.Queries;
 using MediatR;
