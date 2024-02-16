@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BlazorSozluk.Api.Application.Features.Queries.GetEntries;
 using BlazorSozluk.Api.Domain.Models;
+using BlazorSozluk.Common.Infrastructure;
 using BlazorSozluk.Common.Models.Queries;
 using BlazorSozluk.Common.Models.RequestModels;
 using System;
@@ -17,7 +18,8 @@ public class MappingProfile : Profile
     {
         CreateMap<User, LoginUserViewModel>();
 
-        CreateMap<CreateUserCommand, User>();
+        CreateMap<CreateUserCommand, User>()
+            .ForMember(x => x.Password, y => y.MapFrom(z => PasswordEncryptor.Encrypt(z.Password)));
 
         CreateMap<UpdateUserCommand, User>();
 
@@ -26,6 +28,6 @@ public class MappingProfile : Profile
         CreateMap<CreateEntryCommentCommand, EntryComment>();
 
         CreateMap<Entry, GetEntriesViewModel>()
-            .ForMember(x=> x.CommentCount, y => y.MapFrom(z => z.EntryComments.Count));
+            .ForMember(x => x.CommentCount, y => y.MapFrom(z => z.EntryComments.Count));
     }
 }

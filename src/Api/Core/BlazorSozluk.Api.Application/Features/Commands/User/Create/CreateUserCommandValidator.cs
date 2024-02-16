@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorSozluk.Api.Application.Features.Commands.User.Login;
+namespace BlazorSozluk.Api.Application.Features.Commands.User.Create;
 
-public class LoginUserCommandValidator : AbstractValidator<LoginUserCommand>
+public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
-    public LoginUserCommandValidator()
+    public CreateUserCommandValidator()
     {
         RuleFor(i => i.EmailAddress)
             .NotNull()
