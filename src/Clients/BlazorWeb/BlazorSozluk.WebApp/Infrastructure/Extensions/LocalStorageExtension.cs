@@ -1,0 +1,85 @@
+﻿using Blazored.LocalStorage;
+
+namespace BlazorSozluk.WebApp.Infrastructure.Extensions;
+
+public static class LocalStorageExtension
+{
+    public const string TokenName = "token";
+    public const string UserName = "username";
+    public const string UserId = "userid";
+
+    public static bool IsUserLoggedIn(this ISyncLocalStorageService localStorageService)
+    {
+        return !string.IsNullOrEmpty(GetToken(localStorageService));
+    }
+
+    public static string GetUserName(this ISyncLocalStorageService localStorageService)
+    {
+        return localStorageService.GetItemAsString(UserName);
+    }
+
+    public static async Task<string> GetUserName(this ILocalStorageService localStorageService)
+    {
+        return await localStorageService.GetItemAsStringAsync(UserName);
+    }
+
+    public static void SetUserName(this ISyncLocalStorageService localStorageService, string value)
+    {
+        localStorageService.SetItem(UserName, value);
+    }
+
+    public static void SetUserName(this ILocalStorageService localStorageService, string value)
+    {
+        localStorageService.SetItemAsStringAsync(UserName, value);
+    }
+
+    public static Guid GetUserId(this ISyncLocalStorageService localStorageService)
+    {
+        return localStorageService.GetItem<Guid>(UserId);
+    }
+
+    public static async Task<Guid> GetUserId(this ILocalStorageService localStorageService)
+    {
+        return await localStorageService.GetItemAsync<Guid>(UserId);
+    }
+
+    public static void SetUserId(this ISyncLocalStorageService localStorageService, Guid id)
+    {
+        localStorageService.SetItem(UserId, id);
+    }
+
+    public static void SetUserId(this ILocalStorageService localStorageService, Guid id)
+    {
+        localStorageService.SetItemAsync<Guid>(UserId, id);
+    }
+
+    public static string GetToken(this ISyncLocalStorageService localStorageService)
+    {
+        var token = localStorageService.GetItem<string>(TokenName);
+        //TODO
+        if (string.IsNullOrEmpty(token))
+            token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjI3M2EwMDg3LTRkMGEtNDNjZC1jZWU3LTA4ZGM0OTFlNTkyOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InN0cmluZ0BzdHJpbmcuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InN0cmluZyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6InN0cmluZ0BzdHJpbmcuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc3VybmFtZSI6InN0cmluZyIsIm5iZiI6MTcxMDk2NzQ4NCwiZXhwIjoxNzExODMxNDg0fQ.LbDh2O7jiKNg8qbumCnILQYR9tbNSfi_VobSVEaCIXo";
+
+        return token;
+    }
+
+    public static async Task<string> GetTokenAsync(this ILocalStorageService localStorageService)
+    {
+        var token = await localStorageService.GetItemAsStringAsync(TokenName);
+        //TODO
+        if (string.IsNullOrEmpty(token))
+            token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjI3M2EwMDg3LTRkMGEtNDNjZC1jZWU3LTA4ZGM0OTFlNTkyOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InN0cmluZ0BzdHJpbmcuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InN0cmluZyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6InN0cmluZ0BzdHJpbmcuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc3VybmFtZSI6InN0cmluZyIsIm5iZiI6MTcxMDk2NzQ4NCwiZXhwIjoxNzExODMxNDg0fQ.LbDh2O7jiKNg8qbumCnILQYR9tbNSfi_VobSVEaCIXo";
+
+        return token;
+    }
+
+    public static void SetToken(this ISyncLocalStorageService localStorageService, string value)
+    {
+        localStorageService.SetItem(TokenName, value);
+    }
+
+    public static void SetToken(this ILocalStorageService localStorageService, string value)
+    {
+        localStorageService.SetItemAsync(TokenName, value);
+    }
+}

@@ -9,7 +9,7 @@ namespace BlazorSozluk.Common.Events.User;
 
 public class ChangeUserPasswordCommand : IRequest<bool>
 {
-    public ChangeUserPasswordCommand(Guid userId, string oldpassword, string newPassword)
+    public ChangeUserPasswordCommand(Guid? userId, string oldpassword, string newPassword)
     {
         UserId = userId;
         Oldpassword = oldpassword;

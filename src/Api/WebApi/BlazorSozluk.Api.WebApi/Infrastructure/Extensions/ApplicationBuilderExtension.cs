@@ -45,6 +45,7 @@ public static class ApplicationBuilderExtension
 
         if (exception is DatabaseValidationException)
         {
+            statusCode = HttpStatusCode.BadRequest;
             var validationResponse = new ValidationResponseModel(exception.Message);
             await WriteResponse(context, statusCode, validationResponse);
             return;
