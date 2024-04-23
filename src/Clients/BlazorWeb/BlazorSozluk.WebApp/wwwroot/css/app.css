@@ -1,7 +1,7 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro',sans-serif
 }
 
 h1:focus {
@@ -28,6 +28,7 @@ input:not([type="button"]).form-control {
     border-color: white;
 }
 
+
 label {
     color: #bdbdbd;
 }
@@ -43,7 +44,7 @@ label {
         background-color: #5c8e31;
     }
 
-    .btn-success.btn-sozluk:focus, active {
+    .btn-success.btn-sozluk:focus, :active {
         box-shadow: none;
     }
 
@@ -51,6 +52,10 @@ label {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
+}
+
+.article.content {
+    padding: 1px 1px 1px 1px;
 }
 
 .content {
@@ -68,6 +73,8 @@ label {
 .validation-message {
     color: red;
 }
+
+
 
 .list-group {
     margin-right: 5px;
@@ -88,6 +95,7 @@ label {
         background-color: #1f1f1f;
         text-decoration: none;
     }
+
 
 .entry-subject {
     color: #bdbdbd;
@@ -151,6 +159,9 @@ label {
     color: #bdbdbd;
 }
 
+
+
+
 .entry-comment-add-container {
     background-color: #1c1c1c !important;
     padding: 25px 20px 20px 20px;
@@ -162,27 +173,36 @@ label {
 }
 
 .entry-comment-actions {
-    padding: 10px 20px 20px 5px;
+    padding: 25px 15px 15px 15px;
 }
 
-.entry-comment-text-area {
+.entry-comment-textarea {
     background-color: #494949;
     width: 100%;
     color: white;
     height: 250px;
     border-color: #494949;
-    border-radius:3px;
-    outline:none !important;
+    border-radius: 3px;
+    outline: none !important;
 }
+
+.entry-comment-actions {
+    padding-top: 10px;
+    padding-left: 5px;
+}
+
+
+
 
 .card-body {
     background-color: #2d2d2d;
     padding: 5px;
 }
 
-.card-text{
-    color:#bdbdbd;
+.card-text {
+    color: #bdbdbd;
 }
+
 
 #blazor-error-ui {
     background: lightyellow;
