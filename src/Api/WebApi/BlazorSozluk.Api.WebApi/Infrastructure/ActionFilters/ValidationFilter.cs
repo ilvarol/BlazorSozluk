@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using BlazorSozluk.Common.Infrastructure.Results;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace BlazorSozluk.Api.WebApi.Infrastructure.ActionFilters;
 
@@ -14,6 +16,9 @@ public class ValidationFilter
                                                         .Select(x => !string.IsNullOrEmpty(x.ErrorMessage) ? 
                                                                 x.ErrorMessage : x.Exception?.Message)
                                                         .Distinct().ToList();
+
+                var res = new ValidationResponseModel(messages);
+                context.Result = new BadRequestObjectResult(res);
 
                 return;
             }

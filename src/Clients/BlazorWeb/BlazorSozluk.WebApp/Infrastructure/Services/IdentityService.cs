@@ -4,8 +4,10 @@ using BlazorSozluk.Common.Infrastructure.Results;
 using BlazorSozluk.Common.Models.Queries;
 using BlazorSozluk.Common.Models.RequestModels;
 using BlazorSozluk.Common.ViewModels;
+using BlazorSozluk.WebApp.Infrastructure.Auth;
 using BlazorSozluk.WebApp.Infrastructure.Extensions;
 using BlazorSozluk.WebApp.Infrastructure.Services.Interfaces;
+using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -15,11 +17,13 @@ public class IdentityService : IIdentityService
 {
     private readonly HttpClient client;
     private readonly ISyncLocalStorageService syncLocalStorageService;
+    private readonly AuthenticationStateProvider authenticationStateProvider;
 
-    public IdentityService(HttpClient client, ISyncLocalStorageService syncLocalStorageService)
+    public IdentityService(HttpClient client, ISyncLocalStorageService syncLocalStorageService, AuthenticationStateProvider authenticationStateProvider)
     {
         this.client = client;
         this.syncLocalStorageService = syncLocalStorageService;
+        this.authenticationStateProvider = authenticationStateProvider;
     }
 
     public bool IsLoggedIn => !string.IsNullOrEmpty(GetUserToken());
@@ -31,7 +35,7 @@ public class IdentityService : IIdentityService
 
     public string GetUserName()
     {
-        return syncLocalStorageService.GetUserName();
+        return syncLocalStorageService.GetToken();
     }
 
     public Guid GetUserId()
@@ -46,7 +50,7 @@ public class IdentityService : IIdentityService
 
         if (httpResponse != null && !httpResponse.IsSuccessStatusCode)
         {
-            if (httpResponse.StatusCode != System.Net.HttpStatusCode.BadRequest)
+            if (httpResponse.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
                 var validation = JsonSerializer.Deserialize<ValidationResponseModel>(responseStr);
                 responseStr = validation.FlattenErrors;
@@ -63,10 +67,9 @@ public class IdentityService : IIdentityService
             syncLocalStorageService.SetUserName(response.UserName);
             syncLocalStorageService.SetUserId(response.Id);
 
-            //TODO Check after auth
-            //((AuthStateProvider)authStateProvider).NotifyUserLogin(response.UserName, response.Id);
+            ((AuthStateProvider)authenticationStateProvider).NotifyUserLogin(response.UserName, response.Id);
 
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", response.Token);
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", response.UserName);
 
             return true;
         }
@@ -74,14 +77,13 @@ public class IdentityService : IIdentityService
         return false;
     }
 
-    public void logout()
+    public void Logout()
     {
         syncLocalStorageService.RemoveItem(LocalStorageExtension.TokenName);
         syncLocalStorageService.RemoveItem(LocalStorageExtension.UserName);
         syncLocalStorageService.RemoveItem(LocalStorageExtension.UserId);
 
-        //TODO Check after auth
-        //((AuthStateProvider)authStateProvider).NotifyUserLogin(response.UserName, response.Id);
+        ((AuthStateProvider)authenticationStateProvider).NotifyUserLogout();
 
         client.DefaultRequestHeaders.Authorization = null;
     }

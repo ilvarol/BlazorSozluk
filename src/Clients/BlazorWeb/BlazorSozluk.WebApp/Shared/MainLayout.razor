@@ -44,8 +44,8 @@
         }
 
     </div>
-    
-@*     <AuthorizeView>
+
+    <AuthorizeView>
         <Authorized>
             <div class="top-nav">
                 <input type="button" class="form-control btn-success btn-sozluk w-auto" value="Create Entry" @onclick="@NavigateCreateEntryPage" />
@@ -55,13 +55,13 @@
 
         </Authorized>
 
-        <NotAuthorized> *@
+        <NotAuthorized>
             <div class="top-nav">
                 <input type="button" class="form-control btn-success btn-sozluk w-auto" value="Login" @onclick="@NavigateLoginPage" />
             </div>
-        @* </NotAuthorized> *@
+        </NotAuthorized>
 
-    @* </AuthorizeView> *@
+    </AuthorizeView>
 
     <div class="sub-nav">
         <a class="sub-nav-item active">bugün</a>

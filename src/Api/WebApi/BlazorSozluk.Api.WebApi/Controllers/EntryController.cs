@@ -6,13 +6,12 @@ using BlazorSozluk.Api.Application.Features.Queries.GetUserEntries;
 using BlazorSozluk.Common.Models.Queries;
 using BlazorSozluk.Common.Models.RequestModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorSozluk.Api.WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class EntryController : BaseController
     {
         IMediator mediator;
@@ -22,6 +21,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers
             this.mediator = mediator;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetEntries([FromQuery] GetEntriesQuery query)
         {
@@ -30,6 +30,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers
             return Ok(entries);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
@@ -38,6 +39,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("Comments/{id}")]
         public async Task<IActionResult> GetEntryComments(Guid id, int page, int pageSize)
@@ -59,6 +61,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("MainPageEntries")]
         public async Task<IActionResult> GetEntries(int page, int pageSize)
@@ -92,6 +95,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("Search")]
         public async Task<IActionResult> Search([FromQuery] SearchEntryQuery query)

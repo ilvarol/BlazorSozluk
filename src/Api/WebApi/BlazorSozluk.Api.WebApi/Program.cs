@@ -4,13 +4,25 @@ using BlazorSozluk.Infrastructure.Persistence.Extensions;
 using FluentValidation.AspNetCore;
 using System.Text.Json;
 using static BlazorSozluk.Api.WebApi.Infrastructure.ActionFilters.ValidationFilter;
+using JsonOptions = Microsoft.AspNetCore.Http.Json.JsonOptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services
-    .AddControllers(opt => opt.Filters.Add<ValidateModelStateFilter>());
+    .AddControllers(opt => opt.Filters.Add<ValidateModelStateFilter>())
+    .ConfigureApiBehaviorOptions(o => o.SuppressModelStateInvalidFilter = true)
+    .AddJsonOptions(opt =>
+    {
+        opt.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
+
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.PropertyNamingPolicy = null;
+});
+
 
 builder.Services
     .AddFluentValidationAutoValidation()
@@ -20,10 +32,9 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.ConfigureAuth(builder.Configuration);
-
 builder.Services.AddInfrastructureRegistration(builder.Configuration);
 builder.Services.AddApplicationRegistration();
+builder.Services.ConfigureAuth(builder.Configuration);
 
 // Add Cors
 builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>

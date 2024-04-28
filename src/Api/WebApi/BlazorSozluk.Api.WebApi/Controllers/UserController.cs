@@ -3,14 +3,13 @@ using BlazorSozluk.Api.Application.Features.Queries.GetUserDetail;
 using BlazorSozluk.Common.Events.User;
 using BlazorSozluk.Common.Models.RequestModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace BlazorSozluk.Api.WebApi.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
 public class UserController : BaseController
 {
     private IMediator mediator;
@@ -20,6 +19,7 @@ public class UserController : BaseController
         this.mediator = mediator;
     }
 
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(Guid id)
     {
@@ -28,6 +28,7 @@ public class UserController : BaseController
         return Ok(user);
     }
 
+    [AllowAnonymous]
     [HttpGet]
     [Route("UserName/{userName}")]
     public async Task<IActionResult> GetByUserName(string userName)
@@ -37,6 +38,7 @@ public class UserController : BaseController
         return Ok(user);
     }
 
+    [AllowAnonymous]
     [HttpPost]
     [Route("Login")]
     public async Task<IActionResult> Login([FromBody]LoginUserCommand command)
@@ -63,6 +65,7 @@ public class UserController : BaseController
         return Ok(res);
     }
 
+    [AllowAnonymous]
     [HttpPost]
     [Route("Confirm")]
     public async Task<IActionResult> ConfirmEmail(Guid id)

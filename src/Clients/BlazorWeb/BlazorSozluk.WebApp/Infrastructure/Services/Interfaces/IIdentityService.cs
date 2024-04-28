@@ -10,6 +10,6 @@ namespace BlazorSozluk.WebApp.Infrastructure.Services.Interfaces
         string GetUserName();
         string GetUserToken();
         Task<bool> Login(LoginUserCommand command);
-        void logout();
+        void Logout();
     }
 }

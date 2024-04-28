@@ -11,6 +11,10 @@ public class ValidationResponseModel
 {
     public IEnumerable<string> Errors { get; set; }
 
+    public ValidationResponseModel()
+    {
+    }
+
     public ValidationResponseModel(IEnumerable<string> Errors)
     {
         this.Errors = Errors;
