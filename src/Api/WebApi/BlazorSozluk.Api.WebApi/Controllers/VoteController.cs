@@ -20,7 +20,7 @@ public class VoteController : BaseController
     [Route("Entry/{entryId}")]
     public async Task<IActionResult> CreateEntryVote(Guid entryId, VoteType voteType = VoteType.UpVote)
     {
-        var user = await mediator.Send(new CreateEntryVoteCommand(entryId, voteType, UserId));
+        var user = await mediator.Send(new CreateEntryVoteCommand(entryId, voteType, UserId.Value));
 
         return Ok(user);
     }
@@ -29,7 +29,7 @@ public class VoteController : BaseController
     [Route("EntryComment/{entryCommentId}")]
     public async Task<IActionResult> CreateEntryCommentVote(Guid entryCommentId, VoteType voteType = VoteType.UpVote)
     {
-        var user = await mediator.Send(new CreateEntryCommentVoteCommand(entryCommentId, voteType, UserId));
+        var user = await mediator.Send(new CreateEntryCommentVoteCommand(entryCommentId, voteType, UserId.Value));
 
         return Ok(user);
     }

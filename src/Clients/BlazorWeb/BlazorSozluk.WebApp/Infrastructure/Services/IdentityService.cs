@@ -69,7 +69,7 @@ public class IdentityService : IIdentityService
 
             ((AuthStateProvider)authenticationStateProvider).NotifyUserLogin(response.UserName, response.Id);
 
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", response.UserName);
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", response.Token);
 
             return true;
         }

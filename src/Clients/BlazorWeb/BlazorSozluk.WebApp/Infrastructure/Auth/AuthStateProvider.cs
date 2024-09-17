@@ -19,7 +19,7 @@ public class AuthStateProvider : AuthenticationStateProvider
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        var apiToken = await localStorage.GetTokenAsync();
+        var apiToken = await localStorage.GetToken();
 
         if (String.IsNullOrEmpty(apiToken))
             return anonymous;

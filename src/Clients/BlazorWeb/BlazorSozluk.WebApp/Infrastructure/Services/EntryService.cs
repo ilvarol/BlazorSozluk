@@ -23,30 +23,30 @@ public class EntryService : IEntryService
         return response;
     }
 
-    public async Task<List<GetEntriesViewModel>> GetEntryDetail(Guid entryId)
+    public async Task<GetEntryDetailViewModel> GetEntryDetail(Guid entryId)
     {
-        var response = await client.GetFromJsonAsync<List<GetEntriesViewModel>>($"/api/Entry/{entryId}");
+        var response = await client.GetFromJsonAsync<GetEntryDetailViewModel>($"/api/Entry/{entryId}");
 
         return response;
     }
 
-    public async Task<PagedViewModel<GetEntriesViewModel>> GetMainPageEntries(int page, int pageSize)
+    public async Task<PagedViewModel<GetEntryDetailViewModel>> GetMainPageEntries(int page, int pageSize)
     {
-        var response = await client.GetFromJsonAsync<PagedViewModel<GetEntriesViewModel>>($"/api/Entry/MainPageEntries?page={page}&pageSize={pageSize}");
+        var response = await client.GetFromJsonAsync<PagedViewModel<GetEntryDetailViewModel>>($"/api/Entry/MainPageEntries?page={page}&pageSize={pageSize}");
 
         return response;
     }
 
-    public async Task<PagedViewModel<GetEntriesViewModel>> GetProfilePageEntries(int page, int pageSize, string username = null)
+    public async Task<PagedViewModel<GetEntryDetailViewModel>> GetProfilePageEntries(int page, int pageSize, string username = null)
     {
-        var response = await client.GetFromJsonAsync<PagedViewModel<GetEntriesViewModel>>($"/api/Entry/UserEntries?userName={username}&page={page}&pageSize={pageSize}");
+        var response = await client.GetFromJsonAsync<PagedViewModel<GetEntryDetailViewModel>>($"/api/Entry/UserEntries?userName={username}&page={page}&pageSize={pageSize}");
 
         return response;
     }
 
-    public async Task<PagedViewModel<GetEntriesViewModel>> GetEntryComments(Guid entryId, int page, int pageSize)
+    public async Task<PagedViewModel<GetEntryCommentsViewModel>> GetEntryComments(Guid entryId, int page, int pageSize)
     {
-        var response = await client.GetFromJsonAsync<PagedViewModel<GetEntriesViewModel>>($"/api/Entry/Comments/{entryId}?page={page}&pageSize={pageSize}");
+        var response = await client.GetFromJsonAsync<PagedViewModel<GetEntryCommentsViewModel>>($"/api/Entry/Comments/{entryId}?page={page}&pageSize={pageSize}");
 
         return response;
     }

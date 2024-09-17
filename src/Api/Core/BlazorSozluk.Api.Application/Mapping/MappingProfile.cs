@@ -23,6 +23,8 @@ public class MappingProfile : Profile
 
         CreateMap<UpdateUserCommand, User>();
 
+        CreateMap<User, UserDetailViewModel>(); 
+
         CreateMap<CreateEntryCommand, Entry>();
 
         CreateMap<CreateEntryCommentCommand, EntryComment>();

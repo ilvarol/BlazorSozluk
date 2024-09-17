@@ -58,7 +58,6 @@ public class UserService : IUserService
 
             return false;
         }
-
         return res.IsSuccessStatusCode;
     }
 }
